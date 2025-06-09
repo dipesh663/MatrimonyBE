@@ -13,6 +13,8 @@ const authRoutes = require('./Routes/authRoutes');
 const userProfileRoutes = require('./Routes/Matrimony/userProfileRoutes');
 const userRegisterRoutes = require('./Routes/userRegisterRoutes');
 const userPreferenceRoutes = require('./Routes/Matrimony/userPreferenceRoutes');
+const requestRoutes = require('./Routes/Matrimony/requestRoutes');
+
 
 
 const app = express();
@@ -30,6 +32,7 @@ app.use('/auth', authRoutes);
 app.use('/reg', userRegisterRoutes);
 app.use('/user', userProfileRoutes);
 app.use('/preference', userPreferenceRoutes);
+app.use('/request', requestRoutes);
 
 const server = http.createServer(app);
 const io = new Server(server, {
