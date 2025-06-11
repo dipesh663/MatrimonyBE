@@ -14,6 +14,7 @@ const userProfileRoutes = require('./Routes/Matrimony/userProfileRoutes');
 const userRegisterRoutes = require('./Routes/userRegisterRoutes');
 const userPreferenceRoutes = require('./Routes/Matrimony/userPreferenceRoutes');
 const requestRoutes = require('./Routes/Matrimony/requestRoutes');
+const chatRoutes = require('./Routes/Matrimony/chatRoutes');
 
 
 
@@ -33,6 +34,7 @@ app.use('/reg', userRegisterRoutes);
 app.use('/user', userProfileRoutes);
 app.use('/preference', userPreferenceRoutes);
 app.use('/request', requestRoutes);
+app.use('/chat', chatRoutes);
 
 const server = http.createServer(app);
 const io = new Server(server, {
