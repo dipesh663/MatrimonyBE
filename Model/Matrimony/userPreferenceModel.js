@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 const partnerPreferenceSchema = new mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users' },
+    user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
 
     basic: {
         ageRange: {
