@@ -4,7 +4,7 @@ const userProfileController = require('../../Controller/userProfileController');
 const { protect } = require('../../Middleware/authMiddleware');
 
 // Get all user profiles (admin or public view)
-router.get('/allProfiles', protect, userProfileController.getAllUserProfiles);
+router.get('/allProfiles',userProfileController.getAllUserProfiles);
 
 // Get a single user profile by user ID
 router.get('/getProfile/:userId', protect, userProfileController.getUserProfileById);

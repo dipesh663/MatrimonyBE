@@ -8,7 +8,7 @@ const { protect } = require('../Middleware/authMiddleware');
 router.post('/register', protect, userRegisterController.createRegister);
 
 // Get all registered users (protected, or admin only)
-router.get('/all-register-details', protect, userRegisterController.getAllRegisteredDetails);
+router.get('/all-register-details', userRegisterController.getAllRegisteredDetails);
 
 // Get current user's registration details (protected)
 router.get('/getcurrentRegisteredDetails/:userId', protect, userRegisterController.getcurrentRegisteredDetails);
