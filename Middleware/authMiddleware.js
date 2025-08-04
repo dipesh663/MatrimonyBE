@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../Model/authModel');
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
-const authenticateUser = (req, res, next) => {
+const authenticateToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer '))
     return res.status(401).json({ message: 'Unauthorized' });
@@ -17,4 +17,4 @@ const authenticateUser = (req, res, next) => {
   }
 };
 
-module.exports = { protect: authenticateUser };
+module.exports = { authenticateToken };
