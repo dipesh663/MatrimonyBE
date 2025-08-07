@@ -5,6 +5,7 @@ const { authenticateToken } = require('../../Middleware/authMiddleware');
 const upload = require('../../Middleware/upload');
 const matchRoutes = require('./matchRoutes');
 
+
 // Route to create or update user details
 router.post('/user-detail', authenticateToken, upload.single('profilePicture'), userDetail);
 

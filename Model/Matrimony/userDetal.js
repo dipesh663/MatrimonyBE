@@ -85,6 +85,11 @@ const userDetailSchema = new mongoose.Schema({
   profilePicture: {
     type: String,
     default: null
+  },
+
+  profileViews: {
+    type: Number,
+    default: 0
   }
 
 });

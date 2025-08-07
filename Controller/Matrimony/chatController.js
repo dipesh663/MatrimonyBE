@@ -122,4 +122,98 @@ const getMessages = async (req, res) => {
   }
 };
 
-module.exports = { sendMessage, getMessages };
+// Get unread message count for current user
+const getUnreadMessageCount = async (req, res) => {
+  try {
+    const currentUserId = req.userId;
+    
+    const unreadCount = await Chat.countDocuments({
+      receiver: currentUserId,
+      read: false
+    });
+    
+    res.status(200).json({ unreadCount });
+  } catch (error) {
+    console.error('Error fetching unread message count:', error);
+    res.status(500).json({ 
+      message: 'Error fetching unread message count', 
+      error: error.message 
+    });
+  }
+};
+
+// Mark messages as read
+const markMessagesAsRead = async (req, res) => {
+  try {
+    const { senderId } = req.params;
+    const currentUserId = req.userId;
+    
+    await Chat.updateMany(
+      {
+        sender: senderId,
+        receiver: currentUserId,
+        read: false
+      },
+      {
+        read: true
+      }
+    );
+    
+    res.status(200).json({ message: 'Messages marked as read' });
+  } catch (error) {
+    console.error('Error marking messages as read:', error);
+    res.status(500).json({ 
+      message: 'Error marking messages as read', 
+      error: error.message 
+    });
+  }
+};
+
+// Track profile view
+const trackProfileView = async (req, res) => {
+  try {
+    const { viewedUserId } = req.params;
+    const viewerId = req.userId;
+    
+    // Don't track if user views their own profile
+    if (viewedUserId === viewerId) {
+      return res.status(200).json({ message: 'Self view not tracked' });
+    }
+    
+    // Increment profile views count
+    await UserDetail.findOneAndUpdate(
+      { user: viewedUserId },
+      { $inc: { profileViews: 1 } },
+      { new: true }
+    );
+    
+    // Create notification for profile owner
+    const viewerUserDetail = await UserDetail.findOne({ user: viewerId });
+    const viewerName = viewerUserDetail ? 
+      `${viewerUserDetail.firstName} ${viewerUserDetail.lastName}`.trim() : 
+      'Someone';
+    
+    await Notification.create({
+      user: viewedUserId,
+      type: 'profile_view',
+      message: `${viewerName} viewed your profile.`,
+      link: '/dashboard/profile'
+    });
+    
+    res.status(200).json({ message: 'Profile view tracked' });
+  } catch (error) {
+    console.error('Error tracking profile view:', error);
+    res.status(500).json({ 
+      message: 'Error tracking profile view', 
+      error: error.message 
+    });
+  }
+};
+
+module.exports = { 
+  sendMessage, 
+  getMessages, 
+  getUnreadMessageCount, 
+  markMessagesAsRead,
+  trackProfileView
+};
