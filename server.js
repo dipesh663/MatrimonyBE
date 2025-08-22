@@ -59,9 +59,9 @@ app.use('/api/matrimony', horoscopeRoutes);
 app.use('/api/matrimony/matches', matchRoutes);
 app.use('/api/matrimony/request', requestRoutes);
 app.use('/api/matrimony/notifications', notificationRoutes);
-// Register preferences route for /api/preferences
+// Register preferences route for /api/matrimony/preferences
 const preferenceRoutes = require('./Routes/Matrimony/preferenceRoutes');
-app.use('/api', preferenceRoutes);
+app.use('/api/matrimony/preferences', preferenceRoutes);
 app.use('/api/admin', adminRoutes);
 
 const server = http.createServer(app);

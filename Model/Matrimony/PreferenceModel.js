@@ -20,8 +20,8 @@ const preferenceSchema = new mongoose.Schema({
     },
 
     weightRange: {
-        min: { type: Number, min: 45, max: 90 }, // in kg
-        max: { type: Number, min: 45, max: 90 }  // in kg
+        min: { type: Number, min: 30, max: 90 }, // in kg
+        max: { type: Number, min: 30, max: 90 }  // in kg
     },
 
     locations: [{
@@ -58,9 +58,7 @@ const preferenceSchema = new mongoose.Schema({
     },
     careerPreferences: {
         occupation: { type: String, default: '' },
-        designation: { type: String, default: '' },
-        experience: { type: String, default: '' },
-        salaryRange: { type: String, default: '' }
+        salary: { type: String, default: '' }
     },
 
     // Marital Status preference from UserDetail model
@@ -79,8 +77,6 @@ const preferenceSchema = new mongoose.Schema({
         enum: ['Fair', 'Wheatish', 'Dark']
     }],
 
-    // Hobbies preferences
-    hobbies: [{ type: String }],
 
     // Preference weights for matching algorithm
     weights: {
